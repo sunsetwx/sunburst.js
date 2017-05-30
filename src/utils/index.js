@@ -45,19 +45,6 @@ export function parseResponse(promise, respCb, errCb) {
 		})
 		.then(respCb, errCb);
 }
-/*
-
-		// Pass a data reference into, and execute the response callback.
-		.then(data => respCb(data))
-*/
-/*
-
-		// Pass the caught exeption, then execute the error callback or rethrow.
-		.catch(ex => {
-			if (errCb) errCb(ex);
-		});
-*/
-// }
 
 export function handlerURL(endpoint, params, options = constants.DefaultOptions) {
 	const handlerURL = [
