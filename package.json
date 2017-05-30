@@ -5,7 +5,7 @@
   "description": "Sunburst API client library in JavaScript",
   "main": "dist/sunburst.js",
   "scripts": {
-    "build": "webpack -p"
+    "build": "webpack"
   },
   "author": "SunsetWx",
   "license": "MIT",
