@@ -1,11 +1,10 @@
 {
   "name": "sunburst.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "description": "Sunburst API client library in JavaScript",
   "main": "dist/sunburst.js",
   "scripts": {
-    "start": "webpack-dev-server",
     "build": "webpack -p"
   },
   "author": "SunsetWx",
@@ -15,10 +14,10 @@
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-es2017": "^6.24.1",
+    "babili-webpack-plugin": "^0.1.0",
     "eslint": "^3.19.0",
     "eslint-loader": "^1.7.1",
-    "webpack": "^2.5.1",
-    "webpack-dev-server": "^2.4.5"
+    "webpack": "^2.5.1"
   },
   "eslintConfig": {
     "parserOptions": {
@@ -33,9 +32,7 @@
     }
   },
   "dependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "jwt-decode": "^2.2.0",
     "response-pool": "^0.3.3"
   }
 }
-
