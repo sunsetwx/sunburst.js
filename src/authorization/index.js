@@ -35,30 +35,18 @@ import jwtDecode from 'jwt-decode';
 
 export default class Authorization {
 	constructor(options) {
-		try {
-			this.user = {};
-			this.session = {};
-			this.access = {
-				renew: opts.renew(options),
-				retry: opts.retry(options)
-			};
-			this.requests = {
-				access: new ResponsePool(),
-				session: new ResponsePool()
-			};
-
-			this.setUser(options);
-			this.setSession(options);
-
-/*
-			if (opts.userObjInvalid(this) && opts.sessionObjInvalid(this)) {
-				throw new Error(constants.errs.NoAuthOptions);
-			}
-*/
-		}
-		catch (ex) {
-			throw ex;
-		}
+		this.user = {};
+		this.session = {};
+		this.access = {
+			renew: opts.renew(options),
+			retry: opts.retry(options)
+		};
+		this.requests = {
+			access: new ResponsePool(),
+			session: new ResponsePool()
+		};
+		this.setUser(options);
+		this.setSession(options);
 	}
 
 	setUser({ email, password }, cb) {
