@@ -87,7 +87,7 @@ export default class Authorization {
 		}
 	}
 
-	isJWTValid(cb) {
+	isJWTValid() {
 		const { jwt } = this.access;
 		if (!jwt) {
 			return false;
@@ -96,7 +96,7 @@ export default class Authorization {
 		return jwt.exp > utils.unixTime(t);
 	}
 
-	sendLogin(params, cb) {
+	sendLogin(params) {
 		const { user, session } = this;
 		const { email, password } = user;
 		const { id, key } = session;
