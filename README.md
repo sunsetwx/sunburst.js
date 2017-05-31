@@ -2,7 +2,7 @@
 
 This library provides automated authorization handling and bindings for the Sunburst API.
 
-```
+```js
 import Sunburst from 'sunburst.js';
 
 const auth = {
