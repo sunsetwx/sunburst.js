@@ -30,6 +30,7 @@ import * as utils from './utils';
 import Account from './account';
 import Authorization from './authorization';
 
+export { endpoints };
 export default class Sunburst {
 	constructor(options) {
 		try {
