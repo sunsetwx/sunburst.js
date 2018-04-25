@@ -3,6 +3,8 @@
 
 This library provides authorization handling and methods for accessing the Sunburst API.
 
+## Installation
+
 In-browser JavaScript:
 
 ```html
@@ -27,7 +29,7 @@ or, with your favorite module bundler:
 import SunburstJS from 'sunburst.js';
 ```
 
-## Getting started:
+## Getting started
 
 Create a session pair. Aka. `clientId` and `clientSecret`, which are what we use as our API keys:
 
