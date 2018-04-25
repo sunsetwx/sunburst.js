@@ -96,13 +96,14 @@ Here is an example of making four quality prediction requests:
         after: thisTimeTomorrow
       }
     ]);
-    resp.forEach((query) => {
-      if (query.error) {
+
+    resp.forEach(({ collection, error }) => {
+      if (error) {
         // Handle individual query errors separately,
         // as some queries may have still succeeded.
-        return console.error(ex);
+        return console.error(error);
       }
-      query.collection.features.forEach(({ properties }) => {
+      collection.features.forEach(({ properties }) => {
         console.log(properties);
       });
     });
