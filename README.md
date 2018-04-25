@@ -17,7 +17,7 @@ JavaScript in-browser script tag usage:
 <script src="assets/js/sunburst.iife.js"></script>
 ```
 
-* Install using npm:
+Installation using npm:
 
 ```sh
 npm i sunburst.js
@@ -29,7 +29,7 @@ Node.js usage:
 const SunburstJS = require('sunburst.js');
 ```
 
-Use with your favorite module bundler:
+Usage with your favorite module bundler:
 
 ```js
 import SunburstJS from 'sunburst.js';
