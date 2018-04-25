@@ -7,12 +7,12 @@ In-browser JavaScript:
 
 ```html
 <!-- SunburstJS is exposed as a global for compatibility -->
-<script src="./assets/js/sunburst.iife.js"></script>
+<script src="assets/js/sunburst.iife.js"></script>
 ```
 
 Install using npm:
 ```sh
-npm i sunburst-api
+npm i sunburst.js
 ```
 
 Node.js:
