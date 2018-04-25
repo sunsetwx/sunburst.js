@@ -1,6 +1,6 @@
 {
   "name": "sunburst.js",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Sunburst API client library for Node.js and in-browser JavaScript",
   "author": "SunsetWx, LLC.",
   "license": "ISC",
@@ -45,6 +45,9 @@
     "node": ">=6.5",
     "npm": ">=5.6.0"
   },
+  "browserslist": [
+    ">=0.25%"
+  ],
   "browser": {
     "./src/lib/encoding/base64/node.js": "./src/lib/encoding/base64/browser.js",
     "./src/lib/request/node.js": "./src/lib/request/browser.js"

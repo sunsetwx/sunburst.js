@@ -11,40 +11,32 @@
  * @module Constants/Defaults
  */
 
-import USER_AGENT from './user-agent.js';
-
 /**
  * Sets the request timeout.
- * @const {number} timeout
+ * @const {number} TIMEOUT
  */
-export const timeout = 30;
+export const TIMEOUT = 30;
 
 /**
  * Sets the number of seconds until an access token will expire once issued.
- * @const {number} expiresIn
+ * @const {number} EXPIRES_IN
  */
-export const expiresIn = 604800;
+export const EXPIRES_IN = 604800;
 
 /**
  * Sets the permissions of newly-issued access tokens.
- * @const {Array<string>} scope
+ * @const {Array<string>} SCOPE
  */
-export const scope = ['predictions'];
+export const SCOPE = ['predictions'];
 
 /**
  * Sets the number of seconds of expected system clock skew.
- * @const {number} clockSkewOffset
+ * @const {number} CLOCK_SKEW_OFFSET
  */
-export const clockSkewOffset = 5 * 60;
+export const CLOCK_SKEW_OFFSET = 5 * 60;
 
 /**
  * Sets the base URL for requests to the API server.
- * @const {string} baseUrl
+ * @const {string} BASE_URL
  */
-export const baseUrl = 'https://sunburst.sunsetwx.com/v1';
-
-/**
- * Sets the user-agent HTTP header that is sent during requests to the API server.
- * @const {string} userAgent
- */
-export const userAgent = USER_AGENT;
+export const BASE_URL = 'https://sunburst.sunsetwx.com/v1';

@@ -22,4 +22,10 @@ if (typeof process !== 'undefined' && process.versions) {
 
 userAgent.push(`${name}/${version}`);
 
-export default userAgent.join(' ');
+const USER_AGENT = userAgent.join(' ');
+
+/**
+ * Sets the user-agent HTTP header that is sent during requests to the API server.
+ * @const {string} USER_AGENT
+ */
+export default USER_AGENT;

@@ -7,6 +7,7 @@
  */
 
 import * as defaults from './constants/defaults.js';
+import USER_AGENT from './constants/user-agent.js';
 import RequestError from './errors/request-error.js';
 import Base64 from './encoding/base64/node.js';
 import Case from './encoding/case.js';
@@ -53,16 +54,22 @@ class SunburstJS {
    * to make requests.
    * Up to four addresses and CIDR networks are permitted per token.
    * 
-   * @param {string} [options.baseUrl]
-   * The base URL that the API client will use to make requests.
-   * This is used internally for testing and setting it is not recommended.
+   * @param {Object} [options.token]
+   * An object containing an `accessToken` string and an `expires` unix
+   * timestamp in milliseconds,
+   * equivalent to a value returned by the `getToken` method.
+   * This is used to manually set an access token and expiration when the state
+   * of those values is stored outside of an instance of this class,
+   * such as when using redux.
    * 
-   * @param {string} [options.userAgent]
-   * A string containing software and library versions sent with each request
-   * to help the SunsetWx team determine which platforms and platform versions
-   * deserve the most attention during periods of improvement.
-   * Only change this if you know what you are doing or would like to prevent
-   * sending us this info.
+   * @param {string} options.token.accessToken
+   * A string representing an access token.
+   * Required if its container object, `token`, is present within the `options` object.
+   * 
+   * @param {number} options.token.expires
+   * A number representing the access token's expiration time as a unix
+   * timestamp in milliseconds. Required if its container object, `token`,
+   * is present within the `options` object.
    * 
    * @param {number} [options.timeout]
    * The number of seconds afterward that a request should be canceled,
@@ -73,21 +80,33 @@ class SunburstJS {
    * The number of seconds of expected system clock skew.
    * This value is used to set the amount of time before access token expiration
    * that tokens should be refreshed.
+   * 
+   * @param {string} [options.userAgent]
+   * A string containing software and library versions sent with each request
+   * to help the SunsetWx team determine which platforms and platform versions
+   * deserve the most attention during periods of improvement.
+   * Only change this if you know what you are doing or would like to prevent
+   * sending us this info.
+   * 
+   * @param {string} [options.baseUrl]
+   * The base URL that the API client will use to make requests.
+   * This is used internally for testing and setting it is not recommended.
    */
   constructor(options) {
     const defaultOptions = {
       clientId: '',
       clientSecret: '',
-      expiresIn: defaults.expiresIn,
-      scope: defaults.scope,
+      expiresIn: defaults.EXPIRES_IN,
+      scope: defaults.SCOPE,
       origins: [],
       addresses: [],
-      baseUrl: defaults.baseUrl,
-      userAgent: defaults.userAgent,
-      timeout: defaults.timeout,
-      clockSkewOffset: defaults.clockSkewOffset
+      token: null,
+      timeout: defaults.TIMEOUT,
+      clockSkewOffset: defaults.CLOCK_SKEW_OFFSET,
+      userAgent: USER_AGENT,
+      baseUrl: defaults.BASE_URL,
     };
-    this._options = Object.assign({}, defaultOptions, options);
+    this._state = Object.assign({}, defaultOptions, options);
   }
 
   /**
@@ -142,7 +161,7 @@ class SunburstJS {
         }
 
         const defaultHeaders = {
-          'user-agent': this._options.userAgent
+          'user-agent': this._state.userAgent
         };
 
         // Skip adding an access token if the header is already present.
@@ -156,12 +175,12 @@ class SunburstJS {
 
         const encodedResp = await request({
           method,
-          uri:      `${this._options.baseUrl}${path}`,
+          uri:      `${this._state.baseUrl}${path}`,
           headers:  Object.assign({}, defaultHeaders, headers),
           qs:       Case.convertCaseKeys(qs, Case.camelToSnake),
           formData: Case.convertCaseKeys(formData, Case.camelToSnake),
           body:     Case.convertCaseKeys(body, Case.camelToSnake),
-          timeout:  this._options.timeout
+          timeout:  this._state.timeout
         });
 
         const resp = JSON.parse(encodedResp.response);
@@ -264,27 +283,33 @@ class SunburstJS {
    * @param {boolean} [forceRefresh]
    * Refresh the current access token even though it may not have expired.
    * 
+   * @param {boolean} [preventStore]
+   * Prevent storing new access token data within the class instance.
+   * 
    * @returns {Promise<Object>}
    */
-  getToken({ forceRefresh = false }) {
+  getToken({ forceRefresh, preventStore }) {
     return new Promise(async (resolve, reject) => {
 
       if (!forceRefresh) {
-        if (this.token && typeof this.token === 'object') {
-          const skewedExpiration = this.token.expires - (this._options.clockSkewOffset * 1000);
+        if (this._state.token && typeof this._state.token === 'object') {
+          const { token, clockSkewOffset } = this._state;
+          const { accessToken, expires } = token;
+
+          const skewedExpiration = expires - (clockSkewOffset * 1000);
 
           if (skewedExpiration - new Date().valueOf() > 0) {
-            return resolve({ accessToken: this.token.accessToken });
+            return resolve({ accessToken, expires });
           }
         }
       }
 
       try {
-        if (!this._options.clientId || !this._options.clientSecret) {
+        if (!this._state.clientId || !this._state.clientSecret) {
           throw new Error('create a new instance of SunburstJS with both clientId and clientSecret options set');
         }
 
-        const credentials = `${this._options.clientId}:${this._options.clientSecret}`;
+        const credentials = `${this._state.clientId}:${this._state.clientSecret}`;
         const encodedCredentials = Base64.encode(credentials);
 
         const { accessToken, expiresIn } = await this.request({
@@ -295,19 +320,20 @@ class SunburstJS {
           },
           formData: {
             'grant_type': 'client_credentials',
-            'expires_in': this._options.expiresIn,
-            'scope': this._options.scope.join(' '),
-            'origins': this._options.origins.join(' '),
-            'addresses': this._options.addresses.join(' ')
+            'expires_in': this._state.expiresIn,
+            'scope': this._state.scope.join(' '),
+            'origins': this._state.origins.join(' '),
+            'addresses': this._state.addresses.join(' ')
           }
         });
 
-        this.token = {
-          accessToken,
-          expires: expiresIn * 1000 + new Date().valueOf()
-        };
+        const expires = expiresIn * 1000 + new Date().valueOf();
 
-        return resolve({ accessToken });
+        if (!preventStore) {
+          this._state.token = { accessToken, expires };
+        }
+
+        return resolve({ accessToken, expires });
 
       } catch (ex) {
         return reject(ex);
@@ -327,7 +353,7 @@ class SunburstJS {
           path: '/logout'
         });
 
-        this.token = null;
+        this._state.token = null;
         return resolve(resp);
 
       } catch (ex) {

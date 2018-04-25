@@ -3,7 +3,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import json from 'rollup-plugin-json';
 import babel from 'rollup-plugin-babel';
 import uglify from 'rollup-plugin-uglify';
-import { name, version, author, license } from './package.json';
+import { name, version, author, license, browserslist } from './package.json';
 
 const banner = `/* ${name} v${version} | (c) ${author} and other contributors | ${license} License */`;
 
@@ -27,7 +27,7 @@ const babelEnv = {
 };
 
 babelEnv.browser.presets[0][1].targets = {
-  browsers: ['>= 0.25%']
+  browsers: browserslist
 };
 
 babelEnv.node.presets[0][1].targets = {
@@ -51,7 +51,9 @@ const browserIife = Object.assign({}, shared.properties, {
         passes: 2
       },
       output: {
-        preamble: banner
+        preamble: banner,
+        webkit: true,
+        wrap_iife: true
       }
     })
   ]
@@ -61,7 +63,6 @@ const browserEsm = Object.assign({}, shared.properties, {
   output: {
     file: 'dist/sunburst.esm.js',
     format: 'es',
-    name: 'SunburstJS',
     interop: false
   },
   plugins: [
@@ -74,7 +75,8 @@ const browserEsm = Object.assign({}, shared.properties, {
         passes: 2
       },
       output: {
-        preamble: banner
+        preamble: banner,
+        webkit: true
       }
     })
   ]
@@ -84,15 +86,26 @@ const node = Object.assign({}, shared.properties, {
   output: {
     file: 'dist/sunburst.js',
     format: 'cjs',
-    banner,
     interop: false
   },
-  external: ['url', 'querystring', 'https'],
+  external: [
+    'url',
+    'querystring',
+    'https'
+  ],
   plugins: [
     nodeResolve({ module: false }),
     commonjs(),
     json(),
-    babel(babelEnv.node)
+    babel(babelEnv.node),
+    uglify({
+      compress: false,
+      mangle: false,
+      output: {
+        beautify: true,
+        preamble: banner
+      }
+    })
   ]
 });
 

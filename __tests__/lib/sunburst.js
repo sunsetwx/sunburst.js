@@ -178,6 +178,32 @@ test('request deletion of \'remember_me\' sessions', async () => {
   }
 });
 
+test('request access token and use with new class instance', async () => {
+  try {
+    const token = await sunburst.getToken({
+      // `forceRefresh` is set to `true` so that a new token will be requested.
+      forceRefresh: true,
+
+      // `preventStore` is set to `true` to prevent storing the new token within
+      // the original class instance.
+      preventStore: true
+    });
+
+    // This client instance has its token state managed externally.
+    const client = new SunburstJS({ token });
+
+    const resp = await client.quality({
+      geo: [40.7933949, -77.8600012]
+    });
+
+    respCheck(resp);
+    resp.features.forEach(featureCheck);
+
+  } catch (ex) {
+    throw ex;
+  }
+});
+
 test('request account info', async () => {
   try {
     const resp = await sunburst.account();
