@@ -99,7 +99,7 @@ Here is an example of making four quality prediction requests:
     resp.forEach((query) => {
       if (query.error) {
         // Handle individual query errors separately,
-        // as some queries may have still suceeded.
+        // as some queries may have still succeeded.
         return console.error(ex);
       }
       query.collection.features.forEach(({ properties }) => {
