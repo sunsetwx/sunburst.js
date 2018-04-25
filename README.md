@@ -29,6 +29,29 @@ import SunburstJS from 'sunburst.js';
 
 Getting started:
 
+Create a session pair. Aka. `clientId` and `clientSecret`, which are what we use as our API keys:
+
+```js
+(async () => {
+  try {
+    const sunburst = new SunburstJS();
+
+    const session = await sunburst.createSession({
+      email: 'example@example.com',
+      password: 'hunter2',
+      type: 'permanent',
+      scope: ['predictions']
+    });
+    console.log(session);
+  } catch (ex) {
+    // Handle general network or parsing errors.
+    return console.error(ex);
+  }
+})();
+```
+
+Now you can make API requests:
+
 ```js
 const sunburst = new SunburstJS({
   clientId: 'f78fe615-8eb1-48c4-be21-e5f4f437e8ba',

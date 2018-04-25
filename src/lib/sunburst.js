@@ -16,9 +16,9 @@ import parsers from './parsers/index.js';
 /**
  * Exposes methods and stores settings used for accessing Sunburst API endpoints.
  */
-class SunburstAPI {
+class SunburstJS {
   /**
-   * Creates a new instance of SunburstAPI.
+   * Creates a new instance of SunburstJS.
    * 
    * @param {Object} [options]
    * An object containing API client settings. This object may be empty when
@@ -281,7 +281,7 @@ class SunburstAPI {
 
       try {
         if (!this._options.clientId || !this._options.clientSecret) {
-          throw new Error('create a new instance of SunburstAPI with both clientId and clientSecret options set');
+          throw new Error('create a new instance of SunburstJS with both clientId and clientSecret options set');
         }
 
         const credentials = `${this._options.clientId}:${this._options.clientSecret}`;
@@ -591,4 +591,4 @@ class SunburstAPI {
   }
 }
 
-export default SunburstAPI;
+export default SunburstJS;
