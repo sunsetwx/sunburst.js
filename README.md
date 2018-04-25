@@ -27,7 +27,7 @@ or, with your favorite module bundler:
 import SunburstJS from 'sunburst.js';
 ```
 
-Getting started:
+## Getting started:
 
 Create a session pair. Aka. `clientId` and `clientSecret`, which are what we use as our API keys:
 
@@ -60,7 +60,7 @@ const sunburst = new SunburstJS({
 });
 ```
 
-Using an asynchronous function:
+Here is an example, using an asynchronous function:
 
 ```js
 (async () => {
@@ -105,7 +105,7 @@ Using an asynchronous function:
 })();
 ```
 
-Using then and catch callback functions:
+Here is an example, using `then` and `catch` callback functions:
 
 ```js
 (function () {
