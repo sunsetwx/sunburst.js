@@ -1,38 +1,65 @@
 {
   "name": "sunburst.js",
-  "version": "0.0.4",
-  "private": false,
-  "description": "Sunburst API client library in JavaScript",
+  "version": "1.0.0",
+  "description": "Sunburst API client library for Node.js and in-browser JavaScript",
+  "author": "SunsetWx, LLC.",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sunsetwx/sunburst.js.git"
+  },
+  "homepage": "https://github.com/sunsetwx/sunburst.js",
+  "bugs": {
+    "url": "https://github.com/sunsetwx/sunburst.js/issues"
+  },
+  "keywords": [
+    "sunsetwx",
+    "api",
+    "sunsetwx api",
+    "sunburst",
+    "sunburst-js",
+    "client",
+    "client library",
+    "sunrise",
+    "sunset",
+    "weather",
+    "prediction",
+    "nature",
+    "color",
+    "photography",
+    "tourism"
+  ],
   "main": "dist/sunburst.js",
+  "module": "dist/sunburst.esm.js",
+  "files": [
+    "dist/sunburst.js"
+  ],
+  "directories": {
+    "lib": "src/lib"
+  },
   "scripts": {
-    "build": "webpack"
+    "build": "rollup -c",
+    "test": "jest --coverage"
   },
-  "author": "SunsetWx",
-  "license": "MIT",
+  "engines": {
+    "node": ">=6.5",
+    "npm": ">=5.6.0"
+  },
+  "browser": {
+    "./src/lib/encoding/base64/node.js": "./src/lib/encoding/base64/browser.js",
+    "./src/lib/request/node.js": "./src/lib/request/browser.js"
+  },
   "devDependencies": {
-    "babel-core": "^6.24.1",
-    "babel-loader": "^7.0.0",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-es2017": "^6.24.1",
-    "babili-webpack-plugin": "^0.1.0",
-    "eslint": "^3.19.0",
-    "eslint-loader": "^1.7.1",
-    "webpack": "^2.5.1"
-  },
-  "eslintConfig": {
-    "parserOptions": {
-      "ecmaVersion": 8,
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "experimentalObjectRestSpread": true
-      }
-    },
-    "rules": {
-      "semi": 2
-    }
-  },
-  "dependencies": {
-    "jwt-decode": "^2.2.0",
-    "response-pool": "^0.3.3"
+    "babel-core": "^6.26.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
+    "jest": "^22.4.3",
+    "rollup": "^0.58.0",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-json": "^2.3.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-uglify": "^3.0.0",
+    "uglify-es": "^3.3.9"
   }
 }

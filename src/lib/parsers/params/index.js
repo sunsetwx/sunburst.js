@@ -6,5 +6,10 @@
  * ISC License
  */
 
-import SunburstJS from './lib/sunburst.js';
-export default SunburstJS;
+import * as quality from './endpoints/quality.js';
+import * as location from './endpoints/location.js';
+
+export default {
+  quality,
+  location
+};

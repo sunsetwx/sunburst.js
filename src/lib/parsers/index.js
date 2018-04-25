@@ -6,5 +6,5 @@
  * ISC License
  */
 
-import SunburstJS from './lib/sunburst.js';
-export default SunburstJS;
+import params from './params/index.js';
+export default { params };

@@ -1,64 +1,134 @@
 # sunburst.js
+### API client library for Node.js and in-browser JavaScript
 
-This library provides automated authorization handling and bindings for the Sunburst API.
+This library provides authorization handling and methods for accessing the Sunburst API.
+
+In-browser JavaScript:
+
+```html
+<!-- SunburstJS is exposed as a global for compatibility -->
+<script src="./assets/js/sunburst.iife.js"></script>
+```
+
+Install using npm:
+```sh
+npm i sunburst-api
+```
+
+Node.js:
 
 ```js
-import Sunburst from 'sunburst.js';
+const SunburstJS = require('sunburst.js');
+```
 
-const auth = {
-  id: 'f78fe615-8eb1-48c4-be21-e5f4f437e8ba',
-  key: '18qwl0htsPX|[!NGQ@[qK{X;[&^EVzaH'
-};
+or, with your favorite module bundler:
 
-let sunburst = new Sunburst(auth);
+```js
+import SunburstJS from 'sunburst.js';
+```
 
-const params = {
-  type: 'sunrise',
-  coords: [
-    -77.8600012,
-    40.7933949
-  ]
-};
+Getting started:
 
-// Query for quality forecasts within the default radius using the supplied parameters.
-sunburst.quality(params, resp => {
-  console.log(resp);
-}, err => {
-  console.error(err);
+```js
+const sunburst = new SunburstJS({
+  clientId: 'f78fe615-8eb1-48c4-be21-e5f4f437e8ba',
+  clientSecret: '18qwl0htsPX|[!NGQ@[qK{X;[&^EVzaH',
+  scope: ['predictions']
 });
+```
 
-// Setup an averaging reducer.
-const averagingReducer = (acc, val, idx, arr) =>
-  idx + 1 !== arr.length ? (
-    acc + val
-  ) : (
-    (acc + val) / arr.length
-  );
+Using an asynchronous function:
 
-// Map the selected property and apply the selected reducer.
-const reduceFeatureProps = (features, reducer, property) =>
-  features
-    .map(({ properties }) => properties[property])
-    .reduce(reducer);
+```js
+(async () => {
+  try {
+    const now = new Date();
+    const thisTimeTomorrow = now.setDate(now.getDate() + 1);
 
-// Average two numerical properties.
-const averageFeatureQuality = resp => {
-  const avgPer = reduceFeatureProps(resp.features, averagingReducer, 'quality_percent');
+    const resp = await sunburst.batchQuality([
+      {
+        geo: [40.7933949, -77.8600012],
+        type: 'sunrise'
+      },
+      {
+        geo: [40.7933949, -77.8600012],
+        type: 'sunset'
+      },
+      {
+        geo: [40.7933949, -77.8600012],
+        type: 'sunrise',
+        after: thisTimeTomorrow
+      },
+      {
+        geo: [40.7933949, -77.8600012],
+        type: 'sunset',
+        after: thisTimeTomorrow
+      }
+    ]);
+    resp.forEach((query) => {
+      if (query.error) {
+        // Handle individual query errors separately,
+        // as some queries may have still suceeded.
+        return console.error(ex);
+      }
+      query.collection.features.forEach(({ properties }) => {
+        console.log(properties);
+      });
+    });
+  } catch (ex) {
+    // Handle general network or parsing errors.
+    return console.error(ex);
+  }
+})();
+```
 
-  const avgQuality = {
-    label:      sunburst.utils.quality.label(avgPer),
-    percent:    avgPer,
-    value:      reduceFeatureProps(resp.features, averagingReducer, 'quality_value'),
-    source:     resp.features[0].properties.source,
-    reportedAt: new Date(Date.now()).toLocaleString()
-  };
+Using then and catch callback functions:
 
-  console.log('Average Quality:', avgQuality);
-};
+```js
+(function () {
+  const now = new Date();
+  const thisTimeTomorrow = now.setDate(now.getDate() + 1);
+
+  sunburst.batchQuality([
+    {
+      geo: [40.7933949, -77.8600012],
+      type: 'sunrise'
+    },
+    {
+      geo: [40.7933949, -77.8600012],
+      type: 'sunset'
+    },
+    {
+      geo: [40.7933949, -77.8600012],
+      type: 'sunrise',
+      after: thisTimeTomorrow
+    },
+    {
+      geo: [40.7933949, -77.8600012],
+      type: 'sunset',
+      after: thisTimeTomorrow
+    }
+  ]).then(function (resp) {
+    for (const query of resp) {
+      if (query.error) {
+        // Handle individual query errors separately,
+        // as some queries may have still suceeded.
+        console.error(ex);
+        continue;
+      }
+      for (const feature of query.collection.features) {
+        console.log(feature.properties);
+      }
+    }
+  }).catch(function (ex) {
+    // Handle general network or parsing errors.
+    return console.error(ex);
+  });
+})();
 ```
 
 More examples, for each endpoint: [https://sunburst.sunsetwx.com/v1/docs](https://sunburst.sunsetwx.com/v1/docs?javascript=)
 
 ## License
 
-The source code is available under the [MIT License](https://opensource.org/licenses/MIT).
+The source code is available under the [ISC License](https://opensource.org/licenses/ISC).
