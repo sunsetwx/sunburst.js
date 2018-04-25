@@ -24,6 +24,7 @@
     "sunset",
     "weather",
     "prediction",
+    "geolocation",
     "nature",
     "color",
     "photography",
@@ -31,9 +32,7 @@
   ],
   "main": "dist/sunburst.js",
   "module": "dist/sunburst.esm.js",
-  "files": [
-    "dist/sunburst.js"
-  ],
+  "files": [ "dist/sunburst.js" ],
   "directories": {
     "lib": "src/lib"
   },
@@ -45,9 +44,7 @@
     "node": ">=6.5",
     "npm": ">=5.6.0"
   },
-  "browserslist": [
-    ">=0.25%"
-  ],
+  "browserslist": [ ">=0.25%" ],
   "browser": {
     "./src/lib/encoding/base64/node.js": "./src/lib/encoding/base64/browser.js",
     "./src/lib/request/node.js": "./src/lib/request/browser.js"
