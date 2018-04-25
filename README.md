@@ -3,7 +3,7 @@
 
 This library provides authorization handling and methods for accessing the Sunburst API.
 
-## Installation
+## Installation and usage
 
 In-browser JavaScript:
 
