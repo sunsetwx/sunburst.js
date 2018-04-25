@@ -3,6 +3,8 @@
 
 This library provides authorization handling and methods for accessing the Sunburst API.
 
+* Supports Node.js 6.5+ and popular web browsers.
+
 ## Installation and usage
 
 In-browser JavaScript:
