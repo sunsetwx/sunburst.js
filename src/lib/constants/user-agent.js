@@ -6,7 +6,9 @@
  * ISC License
  */
 
-const { name, version } = require('../../../package.json');
+// Uncomment the line below after `await import` becomes common in Node.js.
+// This fix saves a considerable amount of space.
+// import { name, version } from '../../../package.json';
 
 const userAgent = [];
 
@@ -20,7 +22,8 @@ if (typeof process !== 'undefined' && process.versions) {
   )).join(' '));
 }
 
-userAgent.push(`${name}/${version}`);
+// Use imported values after `await import` becomes common in Node.js.
+userAgent.push(`__NAME/__VERSION`);
 
 const USER_AGENT = userAgent.join(' ');
 

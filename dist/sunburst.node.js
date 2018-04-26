@@ -1,4 +1,4 @@
-/* sunburst.js v1.2.1 | (c) SunsetWx, LLC. and other contributors | ISC License */
+/* sunburst.js v1.2.2 | (c) SunsetWx, LLC. and other contributors | ISC License */
 "use strict";
 
 var url = require("url");
@@ -22,123 +22,6 @@ var defaults$1 = Object.freeze({
     __moduleExports: defaults_1
 });
 
-var name = "sunburst.js";
-
-var version = "1.2.1";
-
-var description = "Sunburst API client library for Node.js, React Native, and in-browser JavaScript";
-
-var author = "SunsetWx, LLC.";
-
-var license = "ISC";
-
-var repository = {
-    type: "git",
-    url: "git://github.com/sunsetwx/sunburst.js.git"
-};
-
-var homepage = "https://github.com/sunsetwx/sunburst.js";
-
-var bugs = {
-    url: "https://github.com/sunsetwx/sunburst.js/issues"
-};
-
-var main = "src/index.js";
-
-var module$1 = "dist/sunburst.esm.js";
-
-var directories = {
-    lib: "src/lib"
-};
-
-var scripts = {
-    build: "rollup -c",
-    test: "jest --coverage"
-};
-
-var engines = {
-    node: ">=6.5",
-    npm: ">=5.6.0"
-};
-
-var browserslist = [ ">=0.25%" ];
-
-var browser = {
-    "./src/lib/encoding/base64/node.js": "./src/lib/encoding/base64/browser.js",
-    "./src/lib/request/node.js": "./src/lib/request/browser.js"
-};
-
-var devDependencies = {
-    "babel-core": "^6.26.0",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-preset-env": "^1.6.1",
-    jest: "^22.4.3",
-    rollup: "^0.58.0",
-    "rollup-plugin-babel": "^3.0.3",
-    "rollup-plugin-commonjs": "^9.1.0",
-    "rollup-plugin-json": "^2.3.0",
-    "rollup-plugin-node-resolve": "^3.3.0",
-    "rollup-plugin-uglify": "^3.0.0",
-    "uglify-es": "^3.3.9"
-};
-
-var optionalDependencies = {
-    buffer: "^5.1.0"
-};
-
-var keywords = [ "sunsetwx", "api", "sunsetwx api", "sunburst", "sunburst-js", "client", "client library", "javascript", "node", "node.js", "react-native", "react native", "sunrise", "sunset", "weather", "prediction", "geolocation", "nature", "color", "photography", "tourism" ];
-
-var _package = {
-    name: name,
-    version: version,
-    description: description,
-    author: author,
-    license: license,
-    repository: repository,
-    homepage: homepage,
-    bugs: bugs,
-    main: main,
-    module: module$1,
-    directories: directories,
-    scripts: scripts,
-    engines: engines,
-    browserslist: browserslist,
-    browser: browser,
-    devDependencies: devDependencies,
-    optionalDependencies: optionalDependencies,
-    keywords: keywords,
-    "react-native": {
-        "./src/lib/encoding/base64/node.js": "./src/lib/encoding/base64/react-native.js",
-        "./src/lib/request/node.js": "./src/lib/request/browser.js"
-    }
-};
-
-var _package$1 = Object.freeze({
-    name: name,
-    version: version,
-    description: description,
-    author: author,
-    license: license,
-    repository: repository,
-    homepage: homepage,
-    bugs: bugs,
-    main: main,
-    module: module$1,
-    directories: directories,
-    scripts: scripts,
-    engines: engines,
-    browserslist: browserslist,
-    browser: browser,
-    devDependencies: devDependencies,
-    optionalDependencies: optionalDependencies,
-    keywords: keywords,
-    default: _package
-});
-
-var require$$0 = _package$1 && _package || _package$1;
-
-const {name: name$1, version: version$1} = require$$0;
-
 const userAgent = [];
 
 if (typeof navigator !== "undefined" && navigator.userAgent) {
@@ -149,7 +32,7 @@ if (typeof process !== "undefined" && process.versions) {
     userAgent.push(Object.keys(process.versions).map(key => `${key}/${process.versions[key]}`).join(" "));
 }
 
-userAgent.push(`${name$1}/${version$1}`);
+userAgent.push(`sunburst.js/1.2.2`);
 
 const USER_AGENT = userAgent.join(" ");
 

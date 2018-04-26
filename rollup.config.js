@@ -1,3 +1,4 @@
+import replace from 'rollup-plugin-replace';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import json from 'rollup-plugin-json';
@@ -10,6 +11,11 @@ const banner = `/* ${name} v${version} | (c) ${author} and other contributors | 
 const shared = {
   properties: {
     input: 'src/index.js'
+  },
+  replace: {
+    include: 'src/lib/constants/user-agent.js',
+    __NAME: name,
+    __VERSION: version
   },
   babel: {
     exclude: 'node_modules/**',
@@ -42,6 +48,7 @@ const browserIife = Object.assign({}, shared.properties, {
     interop: false
   },
   plugins: [
+    replace(shared.replace),
     nodeResolve({ module: false, browser: true }),
     commonjs(),
     json(),
@@ -66,6 +73,7 @@ const browserEsm = Object.assign({}, shared.properties, {
     interop: false
   },
   plugins: [
+    replace(shared.replace),
     nodeResolve({ browser: true }),
     commonjs(),
     json(),
@@ -94,6 +102,7 @@ const node = Object.assign({}, shared.properties, {
     'https'
   ],
   plugins: [
+    replace(shared.replace),
     nodeResolve({ module: false }),
     commonjs(),
     json(),
