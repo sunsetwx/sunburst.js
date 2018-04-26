@@ -38,7 +38,7 @@ const serialize = (data) => (
  * @param   {number} [param.timeout]
  * @returns {Promise}
  */
-const request = ({ uri, timeout, method = 'GET', headers = {}, qs, formData, body }) => (
+const request = ({ uri, method = 'GET', headers = {}, qs, formData, body, timeout }) => (
   new Promise((resolve, reject) => {
     try {
       if (body) {
