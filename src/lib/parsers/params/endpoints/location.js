@@ -11,7 +11,7 @@
  * @module Parsers/Params/Location
  */
 
-import geo from '../types/geo.js';
+const geo = require('../types/geo.js');
 
 /**
  * Parses input parameters for the GET method of the location endpoint.
@@ -19,7 +19,11 @@ import geo from '../types/geo.js';
  * @param   {Object} params
  * @returns {Object}
  */
-export const get = (params) => {
+const get = (params) => {
   params.geo = geo(params.geo);
   return params;
+};
+
+module.exports = {
+  get
 };

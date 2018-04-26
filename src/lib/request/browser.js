@@ -97,4 +97,4 @@ const request = ({ uri, method = 'GET', headers = {}, qs, formData, body, timeou
   })
 );
 
-export default request;
+module.exports = request;

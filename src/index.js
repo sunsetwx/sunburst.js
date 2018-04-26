@@ -6,5 +6,5 @@
  * ISC License
  */
 
-import SunburstJS from './lib/sunburst.js';
-export default SunburstJS;
+const SunburstJS = require('./lib/sunburst.js');
+module.exports = SunburstJS;

@@ -6,13 +6,13 @@
  * ISC License
  */
 
-import * as defaults from './constants/defaults.js';
-import USER_AGENT from './constants/user-agent.js';
-import RequestError from './errors/request-error.js';
-import Base64 from './encoding/base64/node.js';
-import Case from './encoding/case.js';
-import request from './request/node.js';
-import parsers from './parsers/index.js';
+const defaults = require('./constants/defaults.js');
+const USER_AGENT = require('./constants/user-agent.js');
+const RequestError = require('./errors/request-error.js');
+const Base64 = require('./encoding/base64/node.js');
+const Case = require('./encoding/case.js');
+const request = require('./request/node.js');
+const parsers = require('./parsers/index.js');
 
 /**
  * Exposes methods and stores settings used for accessing Sunburst API endpoints.
@@ -617,4 +617,4 @@ class SunburstJS {
   }
 }
 
-export default SunburstJS;
+module.exports = SunburstJS;

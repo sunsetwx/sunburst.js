@@ -11,9 +11,9 @@
  * @module Request/Node
  */
 
-import { URL } from 'url';
-import https from 'https';
-import querystring from 'querystring';
+const { URL } = require('url');
+const https = require('https');
+const querystring = require('querystring');
 
 /**
  * Convert a semver version string to a number array.
@@ -121,4 +121,4 @@ const request = ({ method = 'GET', uri, headers = {}, qs, formData, body, timeou
   })
 );
 
-export default request;
+module.exports = request;

@@ -1,4 +1,4 @@
-/* sunburst.js v1.2.0 | (c) SunsetWx, LLC. and other contributors | ISC License */
+/* sunburst.js v1.2.1 | (c) SunsetWx, LLC. and other contributors | ISC License */
 "use strict";
 
 var url = require("url");
@@ -7,19 +7,137 @@ var https = require("https");
 
 var querystring = require("querystring");
 
-const TIMEOUT = 30;
+const defaults = {
+    TIMEOUT: 30,
+    EXPIRES_IN: 604800,
+    SCOPE: [ "predictions" ],
+    CLOCK_SKEW_OFFSET: 5 * 60,
+    BASE_URL: "https://sunburst.sunsetwx.com/v1"
+};
 
-const EXPIRES_IN = 604800;
+var defaults_1 = defaults;
 
-const SCOPE = [ "predictions" ];
-
-const CLOCK_SKEW_OFFSET = 5 * 60;
-
-const BASE_URL = "https://sunburst.sunsetwx.com/v1";
+var defaults$1 = Object.freeze({
+    default: defaults_1,
+    __moduleExports: defaults_1
+});
 
 var name = "sunburst.js";
 
-var version = "1.2.0";
+var version = "1.2.1";
+
+var description = "Sunburst API client library for Node.js, React Native, and in-browser JavaScript";
+
+var author = "SunsetWx, LLC.";
+
+var license = "ISC";
+
+var repository = {
+    type: "git",
+    url: "git://github.com/sunsetwx/sunburst.js.git"
+};
+
+var homepage = "https://github.com/sunsetwx/sunburst.js";
+
+var bugs = {
+    url: "https://github.com/sunsetwx/sunburst.js/issues"
+};
+
+var main = "src/index.js";
+
+var module$1 = "dist/sunburst.esm.js";
+
+var directories = {
+    lib: "src/lib"
+};
+
+var scripts = {
+    build: "rollup -c",
+    test: "jest --coverage"
+};
+
+var engines = {
+    node: ">=6.5",
+    npm: ">=5.6.0"
+};
+
+var browserslist = [ ">=0.25%" ];
+
+var browser = {
+    "./src/lib/encoding/base64/node.js": "./src/lib/encoding/base64/browser.js",
+    "./src/lib/request/node.js": "./src/lib/request/browser.js"
+};
+
+var devDependencies = {
+    "babel-core": "^6.26.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
+    jest: "^22.4.3",
+    rollup: "^0.58.0",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-json": "^2.3.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-uglify": "^3.0.0",
+    "uglify-es": "^3.3.9"
+};
+
+var optionalDependencies = {
+    buffer: "^5.1.0"
+};
+
+var keywords = [ "sunsetwx", "api", "sunsetwx api", "sunburst", "sunburst-js", "client", "client library", "javascript", "node", "node.js", "react-native", "react native", "sunrise", "sunset", "weather", "prediction", "geolocation", "nature", "color", "photography", "tourism" ];
+
+var _package = {
+    name: name,
+    version: version,
+    description: description,
+    author: author,
+    license: license,
+    repository: repository,
+    homepage: homepage,
+    bugs: bugs,
+    main: main,
+    module: module$1,
+    directories: directories,
+    scripts: scripts,
+    engines: engines,
+    browserslist: browserslist,
+    browser: browser,
+    devDependencies: devDependencies,
+    optionalDependencies: optionalDependencies,
+    keywords: keywords,
+    "react-native": {
+        "./src/lib/encoding/base64/node.js": "./src/lib/encoding/base64/react-native.js",
+        "./src/lib/request/node.js": "./src/lib/request/browser.js"
+    }
+};
+
+var _package$1 = Object.freeze({
+    name: name,
+    version: version,
+    description: description,
+    author: author,
+    license: license,
+    repository: repository,
+    homepage: homepage,
+    bugs: bugs,
+    main: main,
+    module: module$1,
+    directories: directories,
+    scripts: scripts,
+    engines: engines,
+    browserslist: browserslist,
+    browser: browser,
+    devDependencies: devDependencies,
+    optionalDependencies: optionalDependencies,
+    keywords: keywords,
+    default: _package
+});
+
+var require$$0 = _package$1 && _package || _package$1;
+
+const {name: name$1, version: version$1} = require$$0;
 
 const userAgent = [];
 
@@ -31,9 +149,16 @@ if (typeof process !== "undefined" && process.versions) {
     userAgent.push(Object.keys(process.versions).map(key => `${key}/${process.versions[key]}`).join(" "));
 }
 
-userAgent.push(`${name}/${version}`);
+userAgent.push(`${name$1}/${version$1}`);
 
 const USER_AGENT = userAgent.join(" ");
+
+var userAgent_1 = USER_AGENT;
+
+var userAgent$1 = Object.freeze({
+    default: userAgent_1,
+    __moduleExports: userAgent_1
+});
 
 class RequestError extends Error {
     constructor(message, statusCode) {
@@ -43,11 +168,25 @@ class RequestError extends Error {
     }
 }
 
-var Base64 = {
+var requestError = RequestError;
+
+var requestError$1 = Object.freeze({
+    default: requestError,
+    __moduleExports: requestError
+});
+
+const Base64 = {
     encode: str => Buffer.from(str).toString("base64")
 };
 
-var Case = {
+var node = Base64;
+
+var node$1 = Object.freeze({
+    default: node,
+    __moduleExports: node
+});
+
+const Case = {
     snakeToCamel(str) {
         return str.replace(/_[a-zA-Z]/g, strSlice => strSlice.toUpperCase().replace("_", ""));
     },
@@ -82,6 +221,15 @@ var Case = {
     }
 };
 
+var _case = Case;
+
+var _case$1 = Object.freeze({
+    default: _case,
+    __moduleExports: _case
+});
+
+const {URL: URL} = url;
+
 const semverStrToArr = str => str.split(".").map(intStr => parseInt(intStr, 10));
 
 const request = ({method: method = "GET", uri: uri, headers: headers = {}, qs: qs, formData: formData, body: body, timeout: timeout}) => new Promise((resolve, reject) => {
@@ -113,7 +261,7 @@ const request = ({method: method = "GET", uri: uri, headers: headers = {}, qs: q
         }
     }
     try {
-        const parsedUrl = new url.URL(uri);
+        const parsedUrl = new URL(uri);
         options.protocol = parsedUrl.protocol;
         options.hostname = parsedUrl.hostname;
         options.port = parsedUrl.port;
@@ -147,6 +295,13 @@ const request = ({method: method = "GET", uri: uri, headers: headers = {}, qs: q
     req.end();
 });
 
+var node$2 = request;
+
+var node$3 = Object.freeze({
+    default: node$2,
+    __moduleExports: node$2
+});
+
 const geo = geo => {
     if (Array.isArray(geo)) {
         return geo.join(",");
@@ -156,6 +311,13 @@ const geo = geo => {
     }
     return geo;
 };
+
+var geo_1 = geo;
+
+var geo$1 = Object.freeze({
+    default: geo_1,
+    __moduleExports: geo_1
+});
 
 const isoTimestamp = t => {
     if (t instanceof Date) {
@@ -167,36 +329,105 @@ const isoTimestamp = t => {
     return t;
 };
 
+var isoTimestamp_1 = isoTimestamp;
+
+var isoTimestamp$1 = Object.freeze({
+    default: isoTimestamp_1,
+    __moduleExports: isoTimestamp_1
+});
+
+var geo$2 = geo$1 && geo_1 || geo$1;
+
+var isoTimestamp$2 = isoTimestamp$1 && isoTimestamp_1 || isoTimestamp$1;
+
 const get = params => {
-    params.geo = geo(params.geo);
-    params.after = isoTimestamp(params.after);
+    params.geo = geo$2(params.geo);
+    params.after = isoTimestamp$2(params.after);
     return params;
 };
 
 const post = paramsList => paramsList.map(params => get(params));
 
-var quality = Object.freeze({
+var quality = {
     get: get,
     post: post
+};
+
+var quality_1 = quality.get;
+
+var quality_2 = quality.post;
+
+var quality$1 = Object.freeze({
+    default: quality,
+    __moduleExports: quality,
+    get: quality_1,
+    post: quality_2
 });
 
 const get$1 = params => {
-    params.geo = geo(params.geo);
+    params.geo = geo$2(params.geo);
     return params;
 };
 
-var location = Object.freeze({
+var location = {
     get: get$1
+};
+
+var location_1 = location.get;
+
+var location$1 = Object.freeze({
+    default: location,
+    __moduleExports: location,
+    get: location_1
 });
 
+var quality$2 = quality$1 && quality || quality$1;
+
+var location$2 = location$1 && location || location$1;
+
 var params = {
-    quality: quality,
-    location: location
+    quality: quality$2,
+    location: location$2
 };
 
+var params_1 = params.quality;
+
+var params_2 = params.location;
+
+var params$1 = Object.freeze({
+    default: params,
+    __moduleExports: params,
+    quality: params_1,
+    location: params_2
+});
+
+var params$2 = params$1 && params || params$1;
+
 var parsers = {
-    params: params
+    params: params$2
 };
+
+var parsers_1 = parsers.params;
+
+var parsers$1 = Object.freeze({
+    default: parsers,
+    __moduleExports: parsers,
+    params: parsers_1
+});
+
+var defaults$2 = defaults$1 && defaults_1 || defaults$1;
+
+var USER_AGENT$1 = userAgent$1 && userAgent_1 || userAgent$1;
+
+var RequestError$1 = requestError$1 && requestError || requestError$1;
+
+var Base64$1 = node$1 && node || node$1;
+
+var Case$1 = _case$1 && _case || _case$1;
+
+var request$1 = node$3 && node$2 || node$3;
+
+var parsers$2 = parsers$1 && parsers || parsers$1;
 
 var asyncToGenerator = function(fn) {
     return function() {
@@ -230,15 +461,15 @@ class SunburstJS {
         const defaultOptions = {
             clientId: "",
             clientSecret: "",
-            expiresIn: EXPIRES_IN,
-            scope: SCOPE,
+            expiresIn: defaults$2.EXPIRES_IN,
+            scope: defaults$2.SCOPE,
             origins: [],
             addresses: [],
             token: null,
-            timeout: TIMEOUT,
-            clockSkewOffset: CLOCK_SKEW_OFFSET,
-            userAgent: USER_AGENT,
-            baseUrl: BASE_URL
+            timeout: defaults$2.TIMEOUT,
+            clockSkewOffset: defaults$2.CLOCK_SKEW_OFFSET,
+            userAgent: USER_AGENT$1,
+            baseUrl: defaults$2.BASE_URL
         };
         this._state = Object.assign({}, defaultOptions, options);
     }
@@ -261,13 +492,13 @@ class SunburstJS {
                         });
                         defaultHeaders.authorization = `Bearer ${accessToken}`;
                     }
-                    const encodedResp = yield request({
+                    const encodedResp = yield request$1({
                         method: method,
                         uri: `${_this._state.baseUrl}${path}`,
                         headers: Object.assign({}, defaultHeaders, headers),
-                        qs: Case.convertCaseKeys(qs, Case.camelToSnake),
-                        formData: Case.convertCaseKeys(formData, Case.camelToSnake),
-                        body: Case.convertCaseKeys(body, Case.camelToSnake),
+                        qs: Case$1.convertCaseKeys(qs, Case$1.camelToSnake),
+                        formData: Case$1.convertCaseKeys(formData, Case$1.camelToSnake),
+                        body: Case$1.convertCaseKeys(body, Case$1.camelToSnake),
                         timeout: _this._state.timeout
                     });
                     const resp = JSON.parse(encodedResp.response);
@@ -278,16 +509,16 @@ class SunburstJS {
                                 reject: reject
                             });
                         }
-                        return reject(new RequestError(resp.error, encodedResp.statusCode));
+                        return reject(new RequestError$1(resp.error, encodedResp.statusCode));
                     }
-                    return resolve(Case.convertCaseKeys(resp, Case.snakeToCamel));
+                    return resolve(Case$1.convertCaseKeys(resp, Case$1.snakeToCamel));
                 } catch (ex) {
                     try {
                         if (typeof ex.statusCode !== "number") {
                             return reject(ex);
                         }
                         const {error: error} = JSON.parse(ex.message);
-                        return reject(new RequestError(error || ex.message, ex.statusCode));
+                        return reject(new RequestError$1(error || ex.message, ex.statusCode));
                     } catch (internalEx) {
                         return reject(ex);
                     }
@@ -310,7 +541,7 @@ class SunburstJS {
                         passcode: passcode
                     };
                     const credentials = `${email}:${password}`;
-                    const encodedCredentials = Base64.encode(credentials);
+                    const encodedCredentials = Base64$1.encode(credentials);
                     const {session: session} = yield _this2.request({
                         method: "POST",
                         path: "/login",
@@ -352,7 +583,7 @@ class SunburstJS {
                         throw new Error("create a new instance of SunburstJS with both clientId and clientSecret options set");
                     }
                     const credentials = `${_this3._state.clientId}:${_this3._state.clientSecret}`;
-                    const encodedCredentials = Base64.encode(credentials);
+                    const encodedCredentials = Base64$1.encode(credentials);
                     const {accessToken: accessToken, expiresIn: expiresIn} = yield _this3.request({
                         method: "POST",
                         path: "/login/session",
@@ -481,22 +712,33 @@ class SunburstJS {
     location(params = {}) {
         return this.request({
             path: "/location",
-            qs: parsers.params.location.get(params)
+            qs: parsers$2.params.location.get(params)
         });
     }
     quality(params = {}) {
         return this.request({
             path: "/quality",
-            qs: parsers.params.quality.get(params)
+            qs: parsers$2.params.quality.get(params)
         });
     }
     batchQuality(paramsList = []) {
         return this.request({
             method: "POST",
             path: "/quality",
-            body: parsers.params.quality.post(paramsList)
+            body: parsers$2.params.quality.post(paramsList)
         });
     }
 }
 
-module.exports = SunburstJS;
+var sunburst = SunburstJS;
+
+var sunburst$1 = Object.freeze({
+    default: sunburst,
+    __moduleExports: sunburst
+});
+
+var SunburstJS$1 = sunburst$1 && sunburst || sunburst$1;
+
+var src = SunburstJS$1;
+
+module.exports = src;

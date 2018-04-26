@@ -12,9 +12,9 @@
  * @module Encoding/Base64/React-Native
  */
 
-import { Buffer } from 'buffer/';
+const { Buffer } = require('buffer/');
 
-export default {
+const Base64 = {
   /**
    * Base64 encode a string value.
    * @param   {string} str
@@ -24,3 +24,5 @@ export default {
     Buffer.from(str).toString('base64')
   )
 };
+
+module.exports = Base64;

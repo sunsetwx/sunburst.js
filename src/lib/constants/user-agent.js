@@ -6,7 +6,7 @@
  * ISC License
  */
 
-import { name, version } from '../../../package.json';
+const { name, version } = require('../../../package.json');
 
 const userAgent = [];
 
@@ -28,4 +28,4 @@ const USER_AGENT = userAgent.join(' ');
  * Sets the user-agent HTTP header that is sent during requests to the API server.
  * @const {string} USER_AGENT
  */
-export default USER_AGENT;
+module.exports = USER_AGENT;

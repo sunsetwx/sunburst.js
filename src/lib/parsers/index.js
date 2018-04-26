@@ -6,5 +6,5 @@
  * ISC License
  */
 
-import params from './params/index.js';
-export default { params };
+const params = require('./params/index.js');
+module.exports = { params };

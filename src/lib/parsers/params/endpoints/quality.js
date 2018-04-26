@@ -11,15 +11,15 @@
  * @module Parsers/Params/Quality
  */
 
-import geo from '../types/geo.js';
-import isoTimestamp from '../types/iso-timestamp';
+const geo = require('../types/geo.js');
+const isoTimestamp = require('../types/iso-timestamp');
 
 /**
  * Parses input parameters for the GET method of the quality endpoint.
  * @param   {Object} params
  * @returns {Object}
  */
-export const get = (params) => {
+const get = (params) => {
   params.geo = geo(params.geo);
   params.after = isoTimestamp(params.after);
 
@@ -31,8 +31,13 @@ export const get = (params) => {
  * @param   {Array.<Object>} paramsList
  * @returns {Array.<Object>}
  */
-export const post = (paramsList) => (
+const post = (paramsList) => (
   paramsList.map((params) => (
     get(params)
   ))
 );
+
+module.exports = {
+  get,
+  post
+};

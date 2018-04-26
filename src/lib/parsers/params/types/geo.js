@@ -27,4 +27,4 @@ const geo = (geo) => {
   return geo;
 };
 
-export default geo;
+module.exports = geo;

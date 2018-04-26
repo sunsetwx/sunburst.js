@@ -11,7 +11,7 @@
  * @private
  * @module Encoding/Case
  */
-export default {
+const Case = {
   /**
    * snakeToCamel converts a snake-case string to camel-case.
    * @param   {string} str
@@ -78,3 +78,5 @@ export default {
     return obj;
   }
 };
+
+module.exports = Case;

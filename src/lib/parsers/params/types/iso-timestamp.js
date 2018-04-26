@@ -27,4 +27,4 @@ const isoTimestamp = (t) => {
   return t;
 };
 
-export default isoTimestamp;
+module.exports = isoTimestamp;

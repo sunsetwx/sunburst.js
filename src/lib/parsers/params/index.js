@@ -6,10 +6,10 @@
  * ISC License
  */
 
-import * as quality from './endpoints/quality.js';
-import * as location from './endpoints/location.js';
+const quality = require('./endpoints/quality.js');
+const location = require('./endpoints/location.js');
 
-export default {
+module.exports = {
   quality,
   location
 };

@@ -11,7 +11,7 @@
  * @private
  * @module Encoding/Base64/Browser
  */
-export default {
+const Base64 = {
   /**
    * Base64 encode a string value.
    * @param   {string} str
@@ -21,3 +21,5 @@ export default {
     btoa(str)
   )
 };
+
+module.exports = Base64;

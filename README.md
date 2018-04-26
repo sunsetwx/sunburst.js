@@ -30,7 +30,7 @@ Installation using npm:
 npm i sunburst.js
 ```
 
-Node.js 8.11+ usage:
+Node.js 8.10+ usage:
 
 ```js
 const SunburstJS = require('sunburst.js');

@@ -9,7 +9,7 @@
 // A lengthier timeout is set due to potential network latency.
 jest.setTimeout(30000);
 
-const SunburstJS = require('../../dist/sunburst.node.js');
+const SunburstJS = require('../../src/index.js');
 
 const passwordCredentials = {
   email: process.env.SUNBURST_API_TESTING_EMAIL,
