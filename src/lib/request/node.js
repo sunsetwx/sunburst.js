@@ -1,5 +1,5 @@
 /*!
- * Sunburst API client library for Node.js and in-browser JavaScript
+ * Sunburst API client library for JavaScript
  * https://sunsetwx.com
  *
  * Copyright (c) 2018, SunsetWx, LLC.
@@ -14,6 +14,17 @@
 import { URL } from 'url';
 import https from 'https';
 import querystring from 'querystring';
+
+/**
+ * Convert a semver version string to a number array.
+ * @param {string} str
+ * @returns {Array<number>}
+ */
+const semverStrToArr = (str) => (
+  str.split('.').map((intStr) => (
+    parseInt(intStr, 10))
+  )
+);
 
 /**
  * Sends a Node.js HTTP request.
@@ -48,10 +59,16 @@ const request = ({ method = 'GET', uri, headers = {}, qs, formData, body, timeou
 
     const options = {
       method,
-      headers,
-      // ecdhCurve must be set to auto: https://github.com/nodejs/node/issues/16196
-      ecdhCurve: 'auto'
+      headers
     };
+
+    // ecdhCurve must be set to auto: https://github.com/nodejs/node/issues/16196
+    const [ nodeMajVer, nodeMinVer ] = semverStrToArr(process.versions.node);
+    if (nodeMajVer < 10) {
+      if (nodeMajVer === 9 || nodeMajVer === 8 && nodeMinVer >= 6) {
+        options.ecdhCurve = 'auto';
+      }
+    }
 
     try {
       const parsedUrl = new URL(uri);

@@ -1,10 +1,17 @@
 # sunburst.js
 
-### Sunburst API client library for Node.js and in-browser JavaScript
+### Sunburst API client library for JavaScript
 
 This library provides authorization handling and methods for accessing the Sunburst API from [SunsetWx](https://sunsetwx.com/).
 
-* Supports Node.js 6.5+ and popular web browsers.
+* Supports Node.js, React Native, and popular web browsers.
+
+### Platform Support
+
+Platform     | Version
+------------ | -------
+Node.js      | 6.5+
+React Native | 0.54+
 
 ## Installation and usage
 
@@ -23,13 +30,19 @@ Installation using npm:
 npm i sunburst.js
 ```
 
-Node.js usage:
+Node.js 8.11+ usage:
 
 ```js
 const SunburstJS = require('sunburst.js');
 ```
 
-Usage with your favorite module bundler:
+Node.js 6.5+ usage:
+
+```js
+const SunburstJS = require('sunburst.js/dist/sunburst.node.js');
+```
+
+Usage with React Native or your favorite module bundler:
 
 ```js
 import SunburstJS from 'sunburst.js';

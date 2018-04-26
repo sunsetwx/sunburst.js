@@ -1,4 +1,4 @@
-/* sunburst.js v1.1.0 | (c) SunsetWx, LLC. and other contributors | ISC License */
+/* sunburst.js v1.2.0 | (c) SunsetWx, LLC. and other contributors | ISC License */
 "use strict";
 
 var url = require("url");
@@ -19,7 +19,7 @@ const BASE_URL = "https://sunburst.sunsetwx.com/v1";
 
 var name = "sunburst.js";
 
-var version = "1.1.0";
+var version = "1.2.0";
 
 const userAgent = [];
 
@@ -82,6 +82,8 @@ var Case = {
     }
 };
 
+const semverStrToArr = str => str.split(".").map(intStr => parseInt(intStr, 10));
+
 const request = ({method: method = "GET", uri: uri, headers: headers = {}, qs: qs, formData: formData, body: body, timeout: timeout}) => new Promise((resolve, reject) => {
     try {
         if (body) {
@@ -102,9 +104,14 @@ const request = ({method: method = "GET", uri: uri, headers: headers = {}, qs: q
     }
     const options = {
         method: method,
-        headers: headers,
-        ecdhCurve: "auto"
+        headers: headers
     };
+    const [nodeMajVer, nodeMinVer] = semverStrToArr(process.versions.node);
+    if (nodeMajVer < 10) {
+        if (nodeMajVer === 9 || nodeMajVer === 8 && nodeMinVer >= 6) {
+            options.ecdhCurve = "auto";
+        }
+    }
     try {
         const parsedUrl = new url.URL(uri);
         options.protocol = parsedUrl.protocol;

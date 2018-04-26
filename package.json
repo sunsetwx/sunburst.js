@@ -1,7 +1,7 @@
 {
   "name": "sunburst.js",
-  "version": "1.1.0",
-  "description": "Sunburst API client library for Node.js and in-browser JavaScript",
+  "version": "1.2.0",
+  "description": "Sunburst API client library for Node.js, React Native, and in-browser JavaScript",
   "author": "SunsetWx, LLC.",
   "license": "ISC",
   "repository": {
@@ -12,27 +12,8 @@
   "bugs": {
     "url": "https://github.com/sunsetwx/sunburst.js/issues"
   },
-  "keywords": [
-    "sunsetwx",
-    "api",
-    "sunsetwx api",
-    "sunburst",
-    "sunburst-js",
-    "client",
-    "client library",
-    "sunrise",
-    "sunset",
-    "weather",
-    "prediction",
-    "geolocation",
-    "nature",
-    "color",
-    "photography",
-    "tourism"
-  ],
-  "main": "dist/sunburst.js",
+  "main": "src/index.js",
   "module": "dist/sunburst.esm.js",
-  "files": [ "dist/sunburst.js" ],
   "directories": {
     "lib": "src/lib"
   },
@@ -44,9 +25,15 @@
     "node": ">=6.5",
     "npm": ">=5.6.0"
   },
-  "browserslist": [ ">=0.25%" ],
+  "browserslist": [
+    ">=0.25%"
+  ],
   "browser": {
     "./src/lib/encoding/base64/node.js": "./src/lib/encoding/base64/browser.js",
+    "./src/lib/request/node.js": "./src/lib/request/browser.js"
+  },
+  "react-native": {
+    "./src/lib/encoding/base64/node.js": "./src/lib/encoding/base64/react-native.js",
     "./src/lib/request/node.js": "./src/lib/request/browser.js"
   },
   "devDependencies": {
@@ -61,5 +48,31 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-uglify": "^3.0.0",
     "uglify-es": "^3.3.9"
-  }
+  },
+  "optionalDependencies": {
+    "buffer": "^5.1.0"
+  },
+  "keywords": [
+    "sunsetwx",
+    "api",
+    "sunsetwx api",
+    "sunburst",
+    "sunburst-js",
+    "client",
+    "client library",
+    "javascript",
+    "node",
+    "node.js",
+    "react-native",
+    "react native",
+    "sunrise",
+    "sunset",
+    "weather",
+    "prediction",
+    "geolocation",
+    "nature",
+    "color",
+    "photography",
+    "tourism"
+  ]
 }

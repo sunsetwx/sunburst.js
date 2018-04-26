@@ -1,5 +1,5 @@
 /*!
- * Sunburst API client library for Node.js and in-browser JavaScript
+ * Sunburst API client library for JavaScript
  * https://sunsetwx.com
  *
  * Copyright (c) 2018, SunsetWx, LLC.
@@ -18,7 +18,12 @@
  */
 const serialize = (data) => (
   Object.keys(data).map((key) => (
-    encodeURIComponent(key) + '=' + encodeURIComponent(data[key])
+    // Fix for react-native's serialization of undefined properties.
+    (typeof data[key] !== 'undefined') ? (
+      encodeURIComponent(key) + '=' + encodeURIComponent(data[key])
+    ) : (
+      null
+    )
   )).join('&')
 );
 

@@ -9,8 +9,11 @@
 /**
  * Base64 module for cross-platform encoding.
  * @private
- * @module Encoding/Base64/Node
+ * @module Encoding/Base64/React-Native
  */
+
+import { Buffer } from 'buffer/';
+
 export default {
   /**
    * Base64 encode a string value.

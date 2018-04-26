@@ -84,7 +84,7 @@ const browserEsm = Object.assign({}, shared.properties, {
 
 const node = Object.assign({}, shared.properties, {
   output: {
-    file: 'dist/sunburst.js',
+    file: 'dist/sunburst.node.js',
     format: 'cjs',
     interop: false
   },
