@@ -165,6 +165,26 @@ test('request session creation and deletion', async () => {
   }
 });
 
+test('request minimal-session creation and deletion', async () => {
+  try {
+    const { clientId, clientSecret, scope } = await sunburst.createSession(passwordCredentials);
+
+    expect(clientId).toBeTruthy();
+    expect(clientSecret).toBeTruthy();
+    expect(scope).toBeTruthy();
+
+    const deletionResp = await sunburst.deleteSessionById({
+      id: clientId
+    });
+
+    respCheck(deletionResp);
+    messageCheck(deletionResp);
+
+  } catch (ex) {
+    throw ex;
+  }
+});
+
 test('request deletion of \'remember_me\' sessions', async () => {
   try {
     const type = 'remember_me';

@@ -18,7 +18,7 @@
  */
 const serialize = (data) => (
   Object.keys(data).map((key) => (
-    // Fix for react-native's serialization of undefined properties.
+    // Skip undefined properties.
     (typeof data[key] !== 'undefined') ? (
       encodeURIComponent(key) + '=' + encodeURIComponent(data[key])
     ) : (

@@ -1,4 +1,4 @@
-/* sunburst.js v1.2.2 | (c) SunsetWx, LLC. and other contributors | ISC License */
+/* sunburst.js v1.2.3 | (c) SunsetWx, LLC. and other contributors | ISC License */
 "use strict";
 
 var url = require("url");
@@ -32,7 +32,7 @@ if (typeof process !== "undefined" && process.versions) {
     userAgent.push(Object.keys(process.versions).map(key => `${key}/${process.versions[key]}`).join(" "));
 }
 
-userAgent.push(`sunburst.js/1.2.2`);
+userAgent.push(`sunburst.js/1.2.3`);
 
 const USER_AGENT = userAgent.join(" ");
 
@@ -412,7 +412,7 @@ class SunburstJS {
             };
         })());
     }
-    createSession({email: email, password: password, passcode: passcode, scope: scope, type: type = "permanent", params: params = {}}) {
+    createSession({email: email, password: password, passcode: passcode, scope: scope = defaults$2.SCOPE, type: type = "permanent", params: params = {}}) {
         var _this2 = this;
         return new Promise((() => {
             var _ref2 = asyncToGenerator(function*(resolve, reject) {
