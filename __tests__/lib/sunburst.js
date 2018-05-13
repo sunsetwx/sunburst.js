@@ -62,9 +62,17 @@ test('request multiple quality predictions', async () => {
         type: 'sunrise'
       },
       {
-        geo: [40.7933949, -77.8600012],
+        geo: ' 40.7933949, -77.8600012 ',
         type: 'sunset'
-      }
+      },
+      {
+        geo: { coordinates: [40.7933949, -77.8600012] },
+        type: 'sunrise'
+      },
+      {
+        geo: '40.7933949,-77.8600012',
+        type: 'sunset'
+      },
     ]);
 
     respCheck(resp);

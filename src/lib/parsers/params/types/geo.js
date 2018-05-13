@@ -24,6 +24,10 @@ const geo = (geo) => {
   if (typeof geo === 'object') {
     return geo.coordinates.join(',');
   }
+  if (typeof geo === 'string') {
+    // Remove all whitespace characters.
+    return geo.replace(/\s+/g, '');
+  }
   return geo;
 };
 

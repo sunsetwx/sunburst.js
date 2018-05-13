@@ -192,6 +192,9 @@ const geo = geo => {
     if (typeof geo === "object") {
         return geo.coordinates.join(",");
     }
+    if (typeof geo === "string") {
+        return geo.replace(/\s+/g, "");
+    }
     return geo;
 };
 
