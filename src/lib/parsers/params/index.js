@@ -7,7 +7,6 @@
  */
 
 const quality = require('./endpoints/quality.js');
-const location = require('./endpoints/location.js');
 
 module.exports = {
   quality,

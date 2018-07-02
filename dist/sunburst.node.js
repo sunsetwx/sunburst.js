@@ -250,30 +250,11 @@ var quality$1 = Object.freeze({
     post: quality_2
 });
 
-const get$1 = params => {
-    params.geo = geo$2(params.geo);
-    return params;
-};
-
-var location = {
-    get: get$1
-};
-
-var location_1 = location.get;
-
-var location$1 = Object.freeze({
-    default: location,
-    __moduleExports: location,
-    get: location_1
-});
-
 var quality$2 = quality$1 && quality || quality$1;
-
-var location$2 = location$1 && location || location$1;
 
 var params = {
     quality: quality$2,
-    location: location$2
+    location: location
 };
 
 var params_1 = params.quality;
@@ -579,26 +560,9 @@ class SunburstJS {
             formData: params
         });
     }
-    totpSecret() {
-        return this.request({
-            path: "/account/mfa/totp"
-        });
-    }
     mfa() {
         return this.request({
             path: "/account/mfa"
-        });
-    }
-    coordinates(params = {}) {
-        return this.request({
-            path: "/coordinates",
-            qs: params
-        });
-    }
-    location(params = {}) {
-        return this.request({
-            path: "/location",
-            qs: parsers$2.params.location.get(params)
         });
     }
     quality(params = {}) {

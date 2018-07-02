@@ -90,35 +90,6 @@ test('request multiple quality predictions', async () => {
   }
 });
 
-test('request coordinates for location', async () => {
-  try {
-    const resp = await sunburst.coordinates({
-      location: 'state college, pa'
-    });
-
-    respCheck(resp);
-    resp.features.forEach(featureCheck);
-
-  } catch (ex) {
-    throw ex;
-  }
-});
-
-test('request location of coordinates', async () => {
-  try {
-    const resp = await sunburst.location({
-      geo: [40.7933949, -77.8600012]
-    });
-
-    respCheck(resp);
-    featureCheck(resp);
-    expect(resp.properties.locale).toBeDefined();
-
-  } catch (ex) {
-    throw ex;
-  }
-});
-
 test('request all permanent sessions', async () => {
   try {
     const type = 'permanent';
@@ -256,7 +227,7 @@ test('request invalid account deletion', async () => {
 
 test('request invalid update to email address', async () => {
   try {
-    // Email and password have been purposely left undefined.
+    // newEmail and password have been purposely left undefined.
     const resp = await sunburst.updateEmail();
   } catch (ex) {
     expect(ex.message).toBeTruthy();
@@ -283,19 +254,6 @@ test('request password reset', async () => {
 
     respCheck(resp);
     messageCheck(resp);
-
-  } catch (ex) {
-    throw ex;
-  }
-});
-
-test('request new MFA TOTP secret', async () => {
-  try {
-    const resp = await sunburst.totpSecret();
-    respCheck(resp);
-
-    expect(resp.secret).toBeTruthy();
-    expect(resp.qrCode).toBeTruthy();
 
   } catch (ex) {
     throw ex;
