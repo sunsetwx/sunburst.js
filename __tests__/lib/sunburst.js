@@ -265,8 +265,8 @@ test('request MFA settings', async () => {
     const resp = await sunburst.mfa();
     respCheck(resp);
 
-    expect(resp.mfaEnabled).toBeDefined();
-    expect(resp.mfaRecoveryCodes).toBeDefined();
+    expect(resp.enabled).toBeDefined();
+    expect(resp.recoveryCodes).toBeDefined();
 
   } catch (ex) {
     throw ex;
