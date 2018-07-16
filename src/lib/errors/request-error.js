@@ -19,7 +19,11 @@ class RequestError extends Error {
    * @param {number} [statusCode] An HTTP status code
    */
   constructor(resp, statusCode) {
-    super(resp.error_description || resp.error);
+    super();
+    this.message = resp.error;
+    if (resp.error_description) {
+      this.message = resp.error_description;
+    }
     this.name = 'RequestError';
     this.statusCode = statusCode;
     this.error = resp.error;

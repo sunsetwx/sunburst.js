@@ -1,6 +1,6 @@
 {
   "name": "sunburst.js",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Sunburst API client library for Node.js, React Native, and in-browser JavaScript",
   "author": "SunsetWx, LLC.",
   "license": "ISC",

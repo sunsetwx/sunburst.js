@@ -1,4 +1,4 @@
-/* sunburst.js v2.1.0 | (c) SunsetWx, LLC. and other contributors | ISC License */
+/* sunburst.js v2.1.1 | (c) SunsetWx, LLC. and other contributors | ISC License */
 "use strict";
 
 var url = require("url");
@@ -32,7 +32,7 @@ if (typeof process !== "undefined" && process.versions) {
     userAgent.push(Object.keys(process.versions).map(key => `${key}/${process.versions[key]}`).join(" "));
 }
 
-userAgent.push(`sunburst.js/2.1.0`);
+userAgent.push(`sunburst.js/2.1.1`);
 
 const USER_AGENT = userAgent.join(" ");
 
@@ -45,7 +45,11 @@ var userAgent$1 = Object.freeze({
 
 class RequestError extends Error {
     constructor(resp, statusCode) {
-        super(resp.error_description || resp.error);
+        super();
+        this.message = resp.error;
+        if (resp.error_description) {
+            this.message = resp.error_description;
+        }
         this.name = "RequestError";
         this.statusCode = statusCode;
         this.error = resp.error;
