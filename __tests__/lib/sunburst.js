@@ -27,6 +27,12 @@ const respCheck = (resp) => {
   expect(resp && resp.error).toBeFalsy();
 };
 
+const respErrCheck = (ex) => {
+  expect(ex).toBeTruthy();
+  expect(ex.message).toBeTruthy();
+  expect(ex && (ex.error_description || ex.error)).toBeTruthy();
+};
+
 const messageCheck = (resp) => {
   expect(resp.message).toBeTruthy();
 };
@@ -50,7 +56,7 @@ test('request a single quality prediction', async () => {
     resp.features.forEach(featureCheck);
 
   } catch (ex) {
-    throw ex;
+    respErrCheck(ex);
   }
 });
 
@@ -86,7 +92,7 @@ test('request multiple quality predictions', async () => {
       query.collection.features.forEach(featureCheck);
     });
   } catch (ex) {
-    throw ex;
+    respErrCheck(ex);
   }
 });
 
@@ -105,7 +111,7 @@ test('request all permanent sessions', async () => {
       expect(session.type === type).toBeTruthy();
     });
   } catch (ex) {
-    throw ex;
+    respErrCheck(ex);
   }
 });
 
@@ -140,7 +146,7 @@ test('request session creation and deletion', async () => {
     messageCheck(deletionResp);
 
   } catch (ex) {
-    throw ex;
+    respErrCheck(ex);
   }
 });
 
@@ -160,7 +166,7 @@ test('request minimal-session creation and deletion', async () => {
     messageCheck(deletionResp);
 
   } catch (ex) {
-    throw ex;
+    respErrCheck(ex);
   }
 });
 
@@ -173,7 +179,7 @@ test('request deletion of \'remember_me\' sessions', async () => {
     messageCheck(resp);
 
   } catch (ex) {
-    throw ex;
+    respErrCheck(ex);
   }
 });
 
@@ -199,7 +205,7 @@ test('request access token and use with new class instance', async () => {
     resp.features.forEach(featureCheck);
 
   } catch (ex) {
-    throw ex;
+    respErrCheck(ex);
   }
 });
 
@@ -211,7 +217,7 @@ test('request account info', async () => {
     expect(resp.email).toBeTruthy();
 
   } catch (ex) {
-    throw ex;
+    respErrCheck(ex);
   }
 });
 
@@ -256,7 +262,7 @@ test('request password reset', async () => {
     messageCheck(resp);
 
   } catch (ex) {
-    throw ex;
+    respErrCheck(ex);
   }
 });
 
@@ -269,7 +275,7 @@ test('request MFA settings', async () => {
     expect(resp.recoveryCodes).toBeDefined();
 
   } catch (ex) {
-    throw ex;
+    respErrCheck(ex);
   }
 });
 
@@ -282,7 +288,7 @@ test('request an update to MFA settings', async () => {
     messageCheck(resp);
 
   } catch (ex) {
-    throw ex;
+    respErrCheck(ex);
   }
 });
 
@@ -294,6 +300,6 @@ test('request logout', async () => {
     messageCheck(resp);
 
   } catch (ex) {
-    throw ex;
+    respErrCheck(ex);
   }
 });

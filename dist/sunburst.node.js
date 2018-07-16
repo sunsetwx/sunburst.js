@@ -1,4 +1,4 @@
-/* sunburst.js v1.2.3 | (c) SunsetWx, LLC. and other contributors | ISC License */
+/* sunburst.js v2.1.0 | (c) SunsetWx, LLC. and other contributors | ISC License */
 "use strict";
 
 var url = require("url");
@@ -32,7 +32,7 @@ if (typeof process !== "undefined" && process.versions) {
     userAgent.push(Object.keys(process.versions).map(key => `${key}/${process.versions[key]}`).join(" "));
 }
 
-userAgent.push(`sunburst.js/1.2.3`);
+userAgent.push(`sunburst.js/2.1.0`);
 
 const USER_AGENT = userAgent.join(" ");
 
@@ -44,10 +44,12 @@ var userAgent$1 = Object.freeze({
 });
 
 class RequestError extends Error {
-    constructor(message, statusCode) {
-        super(message);
+    constructor(resp, statusCode) {
+        super(resp.error_description || resp.error);
         this.name = "RequestError";
         this.statusCode = statusCode;
+        this.error = resp.error;
+        this.error_description = resp.error_description;
     }
 }
 
@@ -376,7 +378,7 @@ class SunburstJS {
                                 reject: reject
                             });
                         }
-                        return reject(new RequestError$1(resp.error, encodedResp.statusCode));
+                        return reject(new RequestError$1(resp, encodedResp.statusCode));
                     }
                     return resolve(Case$1.convertCaseKeys(resp, Case$1.snakeToCamel));
                 } catch (ex) {
@@ -384,8 +386,10 @@ class SunburstJS {
                         if (typeof ex.statusCode !== "number") {
                             return reject(ex);
                         }
-                        const {error: error} = JSON.parse(ex.message);
-                        return reject(new RequestError$1(error || ex.message, ex.statusCode));
+                        const resp = JSON.parse(ex.message);
+                        return reject(new RequestError$1(resp || {
+                            error: ex.message
+                        }, ex.statusCode));
                     } catch (internalEx) {
                         return reject(ex);
                     }

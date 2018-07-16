@@ -189,7 +189,7 @@ class SunburstJS {
             return this.request(params, { resolve, reject });
           }
           return reject(
-            new RequestError(resp.error, encodedResp.statusCode)
+            new RequestError(resp, encodedResp.statusCode)
           );
         }
 
@@ -203,9 +203,9 @@ class SunburstJS {
             return reject(ex);
           }
 
-          const { error } = JSON.parse(ex.message);
+          const resp = JSON.parse(ex.message);
           return reject(
-            new RequestError(error || ex.message, ex.statusCode)
+            new RequestError(resp || { error: ex.message }, ex.statusCode)
           );
 
         } catch (internalEx) {
