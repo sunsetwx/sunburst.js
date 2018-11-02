@@ -1,4 +1,4 @@
-/* sunburst.js v2.1.1 | (c) SunsetWx, LLC. and other contributors | ISC License */
+/* sunburst.js v2.1.2 | (c) SunsetWx, LLC. and other contributors | ISC License */
 "use strict";
 
 var url = require("url");
@@ -17,11 +17,6 @@ const defaults = {
 
 var defaults_1 = defaults;
 
-var defaults$1 = Object.freeze({
-    default: defaults_1,
-    __moduleExports: defaults_1
-});
-
 const userAgent = [];
 
 if (typeof navigator !== "undefined" && navigator.userAgent) {
@@ -32,16 +27,11 @@ if (typeof process !== "undefined" && process.versions) {
     userAgent.push(Object.keys(process.versions).map(key => `${key}/${process.versions[key]}`).join(" "));
 }
 
-userAgent.push(`sunburst.js/2.1.1`);
+userAgent.push(`sunburst.js/2.1.2`);
 
 const USER_AGENT = userAgent.join(" ");
 
 var userAgent_1 = USER_AGENT;
-
-var userAgent$1 = Object.freeze({
-    default: userAgent_1,
-    __moduleExports: userAgent_1
-});
 
 class RequestError extends Error {
     constructor(resp, statusCode) {
@@ -59,21 +49,11 @@ class RequestError extends Error {
 
 var requestError = RequestError;
 
-var requestError$1 = Object.freeze({
-    default: requestError,
-    __moduleExports: requestError
-});
-
 const Base64 = {
     encode: str => Buffer.from(str).toString("base64")
 };
 
 var node = Base64;
-
-var node$1 = Object.freeze({
-    default: node,
-    __moduleExports: node
-});
 
 const Case = {
     snakeToCamel(str) {
@@ -111,11 +91,6 @@ const Case = {
 };
 
 var _case = Case;
-
-var _case$1 = Object.freeze({
-    default: _case,
-    __moduleExports: _case
-});
 
 const {URL: URL} = url;
 
@@ -184,12 +159,7 @@ const request = ({method: method = "GET", uri: uri, headers: headers = {}, qs: q
     req.end();
 });
 
-var node$2 = request;
-
-var node$3 = Object.freeze({
-    default: node$2,
-    __moduleExports: node$2
-});
+var node$1 = request;
 
 const geo = geo => {
     if (Array.isArray(geo)) {
@@ -206,11 +176,6 @@ const geo = geo => {
 
 var geo_1 = geo;
 
-var geo$1 = Object.freeze({
-    default: geo_1,
-    __moduleExports: geo_1
-});
-
 const isoTimestamp = t => {
     if (t instanceof Date) {
         return t.toISOString();
@@ -223,18 +188,9 @@ const isoTimestamp = t => {
 
 var isoTimestamp_1 = isoTimestamp;
 
-var isoTimestamp$1 = Object.freeze({
-    default: isoTimestamp_1,
-    __moduleExports: isoTimestamp_1
-});
-
-var geo$2 = geo$1 && geo_1 || geo$1;
-
-var isoTimestamp$2 = isoTimestamp$1 && isoTimestamp_1 || isoTimestamp$1;
-
 const get = params => {
-    params.geo = geo$2(params.geo);
-    params.after = isoTimestamp$2(params.after);
+    params.geo = geo_1(params.geo);
+    params.after = isoTimestamp_1(params.after);
     return params;
 };
 
@@ -245,62 +201,14 @@ var quality = {
     post: post
 };
 
-var quality_1 = quality.get;
-
-var quality_2 = quality.post;
-
-var quality$1 = Object.freeze({
-    default: quality,
-    __moduleExports: quality,
-    get: quality_1,
-    post: quality_2
-});
-
-var quality$2 = quality$1 && quality || quality$1;
-
 var params = {
-    quality: quality$2,
+    quality: quality,
     location: location
 };
 
-var params_1 = params.quality;
-
-var params_2 = params.location;
-
-var params$1 = Object.freeze({
-    default: params,
-    __moduleExports: params,
-    quality: params_1,
-    location: params_2
-});
-
-var params$2 = params$1 && params || params$1;
-
 var parsers = {
-    params: params$2
+    params: params
 };
-
-var parsers_1 = parsers.params;
-
-var parsers$1 = Object.freeze({
-    default: parsers,
-    __moduleExports: parsers,
-    params: parsers_1
-});
-
-var defaults$2 = defaults$1 && defaults_1 || defaults$1;
-
-var USER_AGENT$1 = userAgent$1 && userAgent_1 || userAgent$1;
-
-var RequestError$1 = requestError$1 && requestError || requestError$1;
-
-var Base64$1 = node$1 && node || node$1;
-
-var Case$1 = _case$1 && _case || _case$1;
-
-var request$1 = node$3 && node$2 || node$3;
-
-var parsers$2 = parsers$1 && parsers || parsers$1;
 
 var asyncToGenerator = function(fn) {
     return function() {
@@ -334,15 +242,15 @@ class SunburstJS {
         const defaultOptions = {
             clientId: "",
             clientSecret: "",
-            expiresIn: defaults$2.EXPIRES_IN,
-            scope: defaults$2.SCOPE,
+            expiresIn: defaults_1.EXPIRES_IN,
+            scope: defaults_1.SCOPE,
             origins: [],
             addresses: [],
             token: null,
-            timeout: defaults$2.TIMEOUT,
-            clockSkewOffset: defaults$2.CLOCK_SKEW_OFFSET,
-            userAgent: USER_AGENT$1,
-            baseUrl: defaults$2.BASE_URL
+            timeout: defaults_1.TIMEOUT,
+            clockSkewOffset: defaults_1.CLOCK_SKEW_OFFSET,
+            userAgent: userAgent_1,
+            baseUrl: defaults_1.BASE_URL
         };
         this._state = Object.assign({}, defaultOptions, options);
     }
@@ -365,13 +273,13 @@ class SunburstJS {
                         });
                         defaultHeaders.authorization = `Bearer ${accessToken}`;
                     }
-                    const encodedResp = yield request$1({
+                    const encodedResp = yield node$1({
                         method: method,
                         uri: `${_this._state.baseUrl}${path}`,
                         headers: Object.assign({}, defaultHeaders, headers),
-                        qs: Case$1.convertCaseKeys(qs, Case$1.camelToSnake),
-                        formData: Case$1.convertCaseKeys(formData, Case$1.camelToSnake),
-                        body: Case$1.convertCaseKeys(body, Case$1.camelToSnake),
+                        qs: _case.convertCaseKeys(qs, _case.camelToSnake),
+                        formData: _case.convertCaseKeys(formData, _case.camelToSnake),
+                        body: _case.convertCaseKeys(body, _case.camelToSnake),
                         timeout: _this._state.timeout
                     });
                     const resp = JSON.parse(encodedResp.response);
@@ -382,16 +290,16 @@ class SunburstJS {
                                 reject: reject
                             });
                         }
-                        return reject(new RequestError$1(resp, encodedResp.statusCode));
+                        return reject(new requestError(resp, encodedResp.statusCode));
                     }
-                    return resolve(Case$1.convertCaseKeys(resp, Case$1.snakeToCamel));
+                    return resolve(_case.convertCaseKeys(resp, _case.snakeToCamel));
                 } catch (ex) {
                     try {
                         if (typeof ex.statusCode !== "number") {
                             return reject(ex);
                         }
                         const resp = JSON.parse(ex.message);
-                        return reject(new RequestError$1(resp || {
+                        return reject(new requestError(resp || {
                             error: ex.message
                         }, ex.statusCode));
                     } catch (internalEx) {
@@ -404,7 +312,7 @@ class SunburstJS {
             };
         })());
     }
-    createSession({email: email, password: password, passcode: passcode, scope: scope = defaults$2.SCOPE, type: type = "permanent", params: params = {}}) {
+    createSession({email: email, password: password, passcode: passcode, scope: scope = defaults_1.SCOPE, type: type = "permanent", params: params = {}}) {
         var _this2 = this;
         return new Promise((() => {
             var _ref2 = asyncToGenerator(function*(resolve, reject) {
@@ -416,7 +324,7 @@ class SunburstJS {
                         passcode: passcode
                     };
                     const credentials = `${email}:${password}`;
-                    const encodedCredentials = Base64$1.encode(credentials);
+                    const encodedCredentials = node.encode(credentials);
                     const {session: session} = yield _this2.request({
                         method: "POST",
                         path: "/login",
@@ -458,7 +366,7 @@ class SunburstJS {
                         throw new Error("create a new instance of SunburstJS with both clientId and clientSecret options set");
                     }
                     const credentials = `${_this3._state.clientId}:${_this3._state.clientSecret}`;
-                    const encodedCredentials = Base64$1.encode(credentials);
+                    const encodedCredentials = node.encode(credentials);
                     const {accessToken: accessToken, expiresIn: expiresIn} = yield _this3.request({
                         method: "POST",
                         path: "/login/session",
@@ -576,27 +484,20 @@ class SunburstJS {
     quality(params = {}) {
         return this.request({
             path: "/quality",
-            qs: parsers$2.params.quality.get(params)
+            qs: parsers.params.quality.get(params)
         });
     }
     batchQuality(paramsList = []) {
         return this.request({
             method: "POST",
             path: "/quality",
-            body: parsers$2.params.quality.post(paramsList)
+            body: parsers.params.quality.post(paramsList)
         });
     }
 }
 
 var sunburst = SunburstJS;
 
-var sunburst$1 = Object.freeze({
-    default: sunburst,
-    __moduleExports: sunburst
-});
-
-var SunburstJS$1 = sunburst$1 && sunburst || sunburst$1;
-
-var src = SunburstJS$1;
+var src = sunburst;
 
 module.exports = src;
