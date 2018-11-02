@@ -37,18 +37,18 @@
     "./src/lib/request/node.js": "./src/lib/request/browser.js"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
+    "babel-core": "^6.26.3",
     "babel-plugin-external-helpers": "^6.22.0",
-    "babel-preset-env": "^1.6.1",
-    "jest": "^22.4.3",
-    "rollup": "^0.58.0",
-    "rollup-plugin-babel": "^3.0.3",
-    "rollup-plugin-commonjs": "^9.1.0",
-    "rollup-plugin-json": "^2.3.0",
-    "rollup-plugin-node-resolve": "^3.3.0",
-    "rollup-plugin-replace": "^2.0.0",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^22.4.4",
+    "rollup": "^0.58.2",
+    "rollup-plugin-babel": "^3.0.7",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-json": "^2.3.1",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-replace": "^2.1.0",
     "rollup-plugin-uglify": "^3.0.0",
-    "uglify-es": "^3.3.9"
+    "uglify-es": "^3.3.10"
   },
   "optionalDependencies": {
     "buffer": "^5.1.0"
@@ -75,5 +75,8 @@
     "color",
     "photography",
     "tourism"
-  ]
+  ],
+  "dependencies": {
+    "npm": "^6.4.1"
+  }
 }
