@@ -9,6 +9,5 @@
 const quality = require('./endpoints/quality.js');
 
 module.exports = {
-  quality,
-  location
+  quality
 };

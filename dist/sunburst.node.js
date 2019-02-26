@@ -1,4 +1,4 @@
-/* sunburst.js v2.1.2 | (c) SunsetWx, LLC. and other contributors | ISC License */
+/* sunburst.js v2.1.3 | (c) SunsetWx, LLC. and other contributors | ISC License */
 "use strict";
 
 var url = require("url");
@@ -27,7 +27,7 @@ if (typeof process !== "undefined" && process.versions) {
     userAgent.push(Object.keys(process.versions).map(key => `${key}/${process.versions[key]}`).join(" "));
 }
 
-userAgent.push(`sunburst.js/2.1.2`);
+userAgent.push(`sunburst.js/2.1.3`);
 
 const USER_AGENT = userAgent.join(" ");
 
@@ -202,8 +202,7 @@ var quality = {
 };
 
 var params = {
-    quality: quality,
-    location: location
+    quality: quality
 };
 
 var parsers = {
